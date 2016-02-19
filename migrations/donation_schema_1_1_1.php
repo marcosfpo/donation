@@ -53,14 +53,14 @@ class donation_schema_1_1_1 extends \phpbb\db\migration\migration
 		$sample_data = array(
 				array(
 					'config_name' 	=> 'donation_expired_pm',
-					'config_value'	=> '[b][size=130]{USER}, sua colaboração venceu, mas o CXT Brasil precisa muito de você para continuar existindo![/size][/b]
+					'config_value'	=> '[b][size=130]{USER}, sua colaboração venceu, mas o fórum precisa muito de você para continuar existindo![/size][/b]
 
 Última colaboração: {LAST}
 Data de vencimento: {EXPIRATION}
 
 O valor atual da colaboração é de {NEW_AMOUNT}.
 
-[b]Renove sua colaboração clicando aqui:[/b] [url]http://forumxt600.com.br/forum/app.php/donation[/url]
+[b]Renove sua colaboração clicando aqui:[/b] [url]./app.php/donation[/url]
 
 A colaboração é cumulativa (começa ao término da outra) e, portanto, pode ser feita a qualquer momento.',
 				),

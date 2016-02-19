@@ -23,9 +23,8 @@ class donation_schema_1_1_0 extends \phpbb\db\migration\migration
 
 	public function update_data()
 	{
+		$donors = $this->count_donors();
 		return array(
-			$donors = $this->count_donors();
-
 			// Add configs
 			array('config.update', array('mfpo_donation_version', '1.1.0')),
          		array('config.add', array('mfpo_donation_donors', $donors)),

@@ -21,7 +21,7 @@ class donation_schema_0_1_0 extends \phpbb\db\migration\migration
 			array('config.add', array('mfpo_donation_version', '0.1.0')),
 			array('config.add', array('mfpo_donation_enable', 1)),
 			array('config.add', array('mfpo_donation_email', '')),
-			array('config.add', array('mfpo_donation_amount', 55)),
+			array('config.add', array('mfpo_donation_amount', 5)),
 			array('config.add', array('mfpo_donation_frequency', 1)),
 			array('config.add', array('mfpo_donation_group_id', '')),
 			array('config.add', array('mfpo_donation_achievement_enable', 0)),
@@ -97,13 +97,13 @@ class donation_schema_0_1_0 extends \phpbb\db\migration\migration
 					'config_name' 	=> 'donation_body',
 					'config_value'	=> '<p style="font-size:large;">Clube dos Colaboradores do CXT Brasil</p>
 <div>
-Um dos fundamentos do CXT Brasil é a participação e acesso a informação do site de forma livre e gratuita.<br /><br />
+Um dos fundamentos do nosso fórum é a participação e acesso a informação do site de forma livre e gratuita.<br /><br />
 Porém, se você quiser ajudar a manter e incentivar as melhorias no fórum, pode se tornar um colaborador. Cada contribuição é válida por um ano.<br /><br />
-Como retorno pela colaboração você poderá concorrer aos sorteios periódicos de produtos fornecidos pelas empresas apoiadoras do CXT Brasil.<br /><br />
+Como retorno pela colaboração você poderá concorrer aos sorteios periódicos de produtos fornecidos pelas empresas apoiadoras do fórum.<br /><br />
 O fórum continua livre e aberto a todos, não havendo nenhuma obrigação de participação.
 </div>
 <br/><br/>
-<p style="font-size:large;color:red;">Colaborando, você ganha um kit de adesivos do CXT!</p>',
+<p style="font-size:large;color:red;">Colaborando, você ganha um brinde!</p>',
 				),
 				array(
 					'config_name' 	=> 'donation_success',
@@ -113,7 +113,7 @@ O fórum continua livre e aberto a todos, não havendo nenhuma obrigação de pa
 Muito obrigado!! <br />
 Não esqueça de ficar de olho nos anúncios que rolam no fórum, para não perder a chance de se inscrever nos sorteios!<br />
 Qualquer dúvida, estamos à disposição. <br />
-Quando faltar 15 dias para o vencimento da sua anuidade, nosso sistema irá lhe enviar um aviso. <br /><br />
+Quando faltar alguns dias para o vencimento da sua anuidade, nosso sistema irá lhe enviar um aviso. <br /><br />
 Abraço.
 </div>',
 				),
@@ -123,21 +123,20 @@ Abraço.
 
 <div>
 Mesmo assim, agradecemos ter considerado a opção de se tornar um colaborador.<br />
-Caso reconsidere, saiba que todos os membros CXT Brasil serão beneficiados com sua ajuda, pois você estará ajudando a manter o fórum no ar.<br /><br />
+Caso reconsidere, saiba que todos os membros do fórum serão beneficiados com sua ajuda, pois você estará ajudando a manter o fórum no ar.<br /><br />
 Abraço.
 </div>',
 				),
 				array(
 					'config_name' 	=> 'donation_pm',
-					'config_value'	=> '[mod=CXT Brasil]Não se preocupe! Estamos apenas testando.[/mod]
+					'config_value'	=> 'Não se preocupe! Estamos apenas testando.
 
-[glow=darkblue][size=130]Sua colaboração está para vencer e o CXT Brasil precisa muito de você para continuar existindo![/size][/glow]
+[size=130]Sua colaboração está para vencer e o fórum precisa muito de você para continuar existindo![/size]
 
-Última colaboração: <xxxx>
-Data de vencimento: <xxxx>
-Valor antigo: <xxxx>
+Última colaboração: {LAST}
+Data de vencimento: {EXPIRATION}
 
-[b]Renove sua colaboração clicando aqui:[/b] [url]http://forumxt600.com.br/forum_317_teste/app.php/donation[/url]
+[b]Renove sua colaboração clicando aqui:[/b] [url]./app.php/donation[/url]
 
 A colaboração é acumulativa e, portanto, pode ser feita a qualquer momento.',
 				),
@@ -149,33 +148,6 @@ A colaboração é acumulativa e, portanto, pode ser feita a qualquer momento.',
 
 		// Insert sample PM data
 		$this->db->sql_multi_insert($this->table_prefix . 'mfpo_donation_conf', $sample_data);
-	}
-	
-	public function migrate_donations()
-	{
-		$sql = 'INSERT INTO `cxt3_mfpo_donation_doles`(
-			`user_id`, 
-			`first_donation`, 
-			`last_donation`, 
-			`expiration`, 
-			`amount`, 
-			`method`, 
-			`added_by_human`, 
-			`gift_sent`, 
-			`status`) 
-			SELECT 
-			`user_id`, 
-			`join_date` as first_donation, 
-			`renew_date` as last_donation, 
-			UNIX_TIMESTAMP(DATE_ADD(FROM_UNIXTIME(`renew_date`), INTERVAL 1 YEAR)) as expiration, 
-			0 as amount, 
-			\'CHECKING ACCOUNT\' as method, 
-			0 as added_by_human, 
-			0 as gift_sent, 
-			(!`user_pending`) as sts 
-			FROM `cxt3_user_group` 
-			WHERE `group_id` = 8727';
-		$this->db->sql_query($sql);
 	}
 	
 }
