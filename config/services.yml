@@ -1,0 +1,38 @@
+imports:
+    - { resource: tables.yml }
+    - { resource: cron.yml }
+services:
+    marcosfpo.donation.controller:
+        class: marcosfpo\donation\controller\donation
+        arguments:
+            - @config
+            - @controller.helper
+            - @template
+            - @log
+            - @user
+            - @dbal.conn
+            - @request
+            - %marcosfpo.donation.table.donation_config%
+            - %marcosfpo.donation.table.donation_doles%
+    marcosfpo.donation.admin.controller:
+        class: marcosfpo\donation\controller\admin_controller
+        arguments:
+            - @config
+            - @template
+            - @log
+            - @user
+            - @dbal.conn
+            - @request
+            - %marcosfpo.donation.table.donation_config%
+            - %marcosfpo.donation.table.donation_doles%
+    marcosfpo.donation.listener:
+        class: marcosfpo\donation\event\listener
+        arguments:
+            - @config
+            - @controller.helper
+            - @template
+            - @user
+            - @dbal.conn
+            - %marcosfpo.donation.table.donation_doles%
+        tags:
+            - { name: event.listener }

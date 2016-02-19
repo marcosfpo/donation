@@ -1,0 +1,88 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{L_DONATION_TITLE_HEAD} {SITENAME}</h2>
+
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+            
+		<!-- IF DONATION_GOAL_ENABLE and DONATION_ACHIEVEMENT_ENABLE and DONATION_GOAL > 0 -->
+		<div style="background:url('{BOARD_URL}ext/marcosfpo/donation/styles/prosilver/theme/images/prog_grey.png') repeat-x; background-color: #cccccc; border: 1px solid black; border-radius: 6px;	-moz-border-radius: 6px; -webkit-border-radius: 6px; width:100%; margin-top: 2px;"><div style="background:url('{BOARD_URL}ext/marcosfpo/donation/styles/prosilver/theme/images/prog_<!-- IF DONATION_GOAL_NUMBER < 34 -->red<!-- ELSEIF DONATION_GOAL_NUMBER < 67 -->yellow<!-- ELSE -->green<!-- ENDIF -->.png') repeat-x;background-color: #008040; color: white; font-weight:bold; max-width:100%;<!-- IF DONATION_GOAL_NUMBER < 100 --> border-right: 1px solid black;<!-- ENDIF -->	width:{DONATION_GOAL_NUMBER}%; height:24px; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;"><span style="padding-left:10px; font-size:18px;">{DONATION_GOAL_NUMBER}<!-- IF DONATION_GOAL_NUMBER >= 5 -->%<!-- ENDIF --></span></div></div>
+		<!-- ENDIF -->
+                
+		<!-- IF DONATION_ACHIEVEMENT_ENABLE or DONATION_GOAL_ENABLE -->
+		<p style="margin-top:10px; font-size:1.5em; text-align:center;"><!-- IF DONATION_ACHIEVEMENT_ENABLE -->{L_WE_HAVE_ACHIEVED} <strong><!-- IF DONATION_ACHIEVEMENT > 0 -->{DONATION_ACHIEVEMENT}<!-- ELSE -->{DONATION_GOAL_NUMBER}<!-- ENDIF --></strong><!-- IF DONATION_GOAL_CURRENCY_ENABLE --> {DONATION_GOAL_CURRENCY}<!-- ENDIF --> {L_WE_HAVE_ACHIEVED_IN}<!-- ENDIF --><!-- IF DONATION_GOAL_ENABLE and DONATION_GOAL > 0 --> {L_OUR_DONATION_GOAL} <strong>{DONATION_GOAL}</strong><!-- IF DONATION_GOAL_CURRENCY_ENABLE --> {DONATION_GOAL_CURRENCY}<!-- ENDIF -->.<!-- ENDIF --></p><hr />
+		<!-- ENDIF -->
+                
+		<!-- IF DONATION_BODY -->{DONATION_BODY}<!-- ELSE --><p>{L_DONATION_BODY_DEFAULT}</p><!-- IF U_ACP --><p><em>{L_DONATION_ADMIN_DEFAULT}</em></p><!-- ENDIF --><!-- ENDIF -->
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<div class="panel">
+	<div class="inner">
+		<div style="text-align:center; padding-top:6px;">
+		<!-- IF S_USER_LOGGED_IN and not S_IS_BOT -->
+		
+			<!-- IF DONATION_STATUS <> 0 -->
+			
+				<p style="text-align:center; padding-top:6px; font-size:large"><strong>{L_U_R_DONOR}</strong></p>
+				<p style="text-align:left; padding-top:6px; font-size:medium">
+					{L_DONATION_LAST}{L_COLON} <strong>{DONATION_LAST}</strong><br />
+					<!-- IF DONATION_AMOUNT <> "0,00" --> {L_DONATION_AMOUNT}{L_COLON} <strong>{L_DONATION_CURRENCY_SYMBOL} {DONATION_F_AMOUNT}</strong><br /> <!-- ENDIF -->
+					{L_DONATION_EXPIRATION}{L_COLON} <strong>{DONATION_EXPIRATION}</strong><br />
+					{L_DONATION_STATUS}{L_COLON} <strong><!-- IF DONATION_STATUS == 1 -->{L_DONATION_ACTIVE}<!-- ELSEIF DONATION_STATUS == 0 -->{L_DONATION_INACTIVE}<!-- ELSE -->{L_DONATION_WAITING_ACTIVATION}<!-- ENDIF --></strong>
+				</p>
+				<p style="text-align:center; padding-top:6px; font-size:large">
+					{L_DONATION_RENOVATION} {DONATION_F_EXPIRATION_NEW}.
+				</p>
+				
+			<!-- ENDIF -->			
+		
+			<p style="text-align:center; padding-top:6px; font-size:large">
+			{L_DONATION_CURRENCY_SYMBOL} <b>{DONATION_F_AMOUNT_NEW}</b> 
+			(
+			<!-- IF DONATION_FREQUENCY == 1 --> {L_DONATION_YEARLY_MSG}<!-- ENDIF -->
+			<!-- IF DONATION_FREQUENCY == 2 --> {L_DONATION_SEMESTRIAL_MSG}<!-- ENDIF -->
+			<!-- IF DONATION_FREQUENCY == 3 --> {L_DONATION_QUARTERLY_MSG}<!-- ENDIF -->
+			<!-- IF DONATION_FREQUENCY == 4 --> {L_DONATION_MONTHLY_MSG}<!-- ENDIF -->
+			)
+			</p>
+			<p style="text-align:center; padding-top:6px; font-size:large">
+				{L_DONATION_SEND_NOTICE}
+			</p>
+			
+    			<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+    			<!-- form action="https://www.paypal.com/cgi-bin/webscr" method="post" -->
+				<div>
+					<input type="hidden" name="cmd" value="_xclick" />
+					<input type="hidden" name="business" value="{DONATION_EMAIL}" />
+					<input type="hidden" name="item_name" value="{L_DONATION_DESCRIPTION} {SITENAME}" />
+					<input type="hidden" name="no_shipping" value="2" />
+					<input type="hidden" name="return" value="{U_DONATE_SUCCESS}" />
+					<input type="hidden" name="cancel_return" value="{U_DONATE_CANCEL}" />
+					<input type="hidden" name="item_number" value="{S_USERNAME} : {DONATION_F_LAST_NEW}-{DONATION_F_EXPIRATION_NEW}" />
+					<input type="hidden" name="tax" value="0" />
+					<input type="hidden" name="amount" value="{DONATION_AMOUNT_NEW}" />
+					<input type="hidden" name="currency_code" value="BRL" />
+					<input type="hidden" name="charset" value="utf-8" />
+					<input type="hidden" name="lc" value="BR">					
+				</div>
+				<fieldset style="margin-top:8px; background-color: White; padding: 4px;">
+					<p style="color:DarkRed; font-size:medium;"><b>{L_DONATION_PAY_ALERT}</b></p>
+					<p style="color:Blue; font-size:large;">{L_DONATION_PAY_IMAGE_LABEL}{L_COLON}</p>
+					<input type="image" name="submit" alt="Pague com PayPal" src="https://www.paypal-brasil.com.br/logocenter/util/img/botao-checkout_horizontal_ap.png" />
+				</fieldset>
+			</form>
+			
+						
+		<!-- ELSE -->			
+			
+			<p style="text-align:center; padding-top:6px; font-size:large"><strong>{L_DONATION_NOT_LOGGED}</strong></p>
+			
+		<!-- ENDIF -->
+			
+		</div>
+			
+	</div>
+</div>
+
+<!-- INCLUDE overall_footer.html -->

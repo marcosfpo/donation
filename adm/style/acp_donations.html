@@ -1,0 +1,271 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF S_ADD_DONATION or S_EDIT_DONATION -->
+
+	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
+
+	<!-- IF S_ADD_DONATION -->
+		<h1>{L_ACP_DONATIONS_ADD_DONATION}</h1>
+		<p>{L_ACP_DONATIONS_ADD_DONATION_EXPLAIN}</p>
+	<!-- ELSE -->
+		<h1>{L_ACP_DONATIONS_EDIT_DONATION} {L_COLON}{L_COLON} {DONOR}</h1>
+		<p>{L_ACP_DONATIONS_EDIT_DONATION_EXPLAIN}</p>
+	<!-- ENDIF -->
+	
+	<form id="add_edit_donation_form" method="post" action="{U_ACTION}">
+		<fieldset>
+			<legend><!-- IF S_ADD_DONATION -->{L_DONATION_ADD}<!-- ELSE -->{L_DONATION_EDIT}<!-- ENDIF --></legend>
+			<dl>
+				<dt><label for="donor">{L_DONATION_DONOR}{L_COLON}</label><br /><span>{L_DONATION_DONOR_EXPLAIN}</span></dt>
+				<dd><input type="text" id="donor" name="donor" value="{DONOR}" maxlength="200" size="80" <!-- IF S_EDIT_DONATION -->readonly<!-- ENDIF --> /></dd>
+			</dl>
+			<dl>
+				<dt><label for="first_day">{L_DONATION_FIRST}{L_COLON}</label><br /><span>{L_DONATION_FIRST_EXPLAIN}</span></dt>
+				<dd>
+					<label for="first_day">{L_DAY}{L_COLON} <select name="first_day" id="first_day">{S_FIRST_DAY_OPTIONS}</select></label>
+					<label for="first_month">{L_MONTH}{L_COLON} <select name="first_month" id="first_month">{S_FIRST_MONTH_OPTIONS}</select></label>
+					<label for="first_year">{L_YEAR}{L_COLON} <select name="first_year" id="first_year">{S_FIRST_YEAR_OPTIONS}</select></label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="last_day">{L_DONATION_LAST}{L_COLON}</label><br /><span>{L_DONATION_LAST_EXPLAIN}</span></dt>
+				<dd>
+					<label for="last_day">{L_DAY}{L_COLON} <select name="last_day" id="last_day">{S_LAST_DAY_OPTIONS}</select></label>
+					<label for="last_month">{L_MONTH}{L_COLON} <select name="last_month" id="last_month">{S_LAST_MONTH_OPTIONS}</select></label>
+					<label for="last_year">{L_YEAR}{L_COLON} <select name="last_year" id="last_year">{S_LAST_YEAR_OPTIONS}</select></label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="expiration">{L_DONATION_EXPIRATION}{L_COLON}</label><br /><span>{L_DONATION_EXPIRATION_EXPLAIN}</span></dt>
+				<dd>
+					<label for="expiration_day">{L_DAY}{L_COLON} <select name="expiration_day" id="expiration_day">{S_EXPIRATION_DAY_OPTIONS}</select></label>
+					<label for="expiration_month">{L_MONTH}{L_COLON} <select name="expiration_month" id="expiration_month">{S_EXPIRATION_MONTH_OPTIONS}</select></label>
+					<label for="expiration_year">{L_YEAR}{L_COLON} <select name="expiration_year" id="expiration_year">{S_EXPIRATION_YEAR_OPTIONS}</select></label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="amount">{L_DONATION_AMOUNT}{L_COLON}</label><br /><span>{L_DONATION_AMOUNT_EXPLAIN}</span></dt>
+				<dd><input type="number" step="0.01" min="0" id="amount" name="amount" value="{AMOUNT}" size="40" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="method">{L_DONATION_METHOD}{L_COLON}</label><br /><span>{L_DONATION_METHOD_EXPLAIN}</span></dt>
+				<dd><select name="method" id="donation_frequency">
+					<option value="PAYPAL" <!-- IF METHOD == "PAYPAL" -->selected="selected"<!-- ENDIF --> >{L_DONATION_METHOD_PAYPAL}</option>
+					<option value="CHECKING ACCOUNT" <!-- IF METHOD == "CHECKING ACCOUNT" -->selected="selected"<!-- ENDIF --> >{L_DONATION_METHOD_CHECKING_ACCOUNT}</option>
+					<option value="IN PERSON" <!-- IF METHOD == "IN PERSON" -->selected="selected"<!-- ENDIF --> >{L_DONATION_METHOD_IN_PERSON}</option>
+					<option value="OTHER" <!-- IF METHOD == "OTHER" -->selected="selected"<!-- ENDIF --> >{L_DONATION_METHOD_OTHER}</option>
+				</select></dd>
+			</dl>
+			
+			<dl>
+				<dt><label for="s_gift_sent">{L_DONATION_GIFT_SENT}{L_COLON}</label><br /><span>{L_DONATION_GIFT_SENT_EXPLAIN}</span></dt>
+				<dd>
+					<label><input type="radio" name="s_gift_sent" value="1" <!-- IF S_GIFT_SENT --> id="s_gift_sent" checked="checked"<!-- ENDIF --> /> {L_YES}</label> 
+					<label><input type="radio" name="s_gift_sent" value="0" <!-- IF not S_GIFT_SENT --> id="s_gift_sent" checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="s_added_by_human">{L_DONATION_ADDED_BY_HUMAN}{L_COLON}</label><br /><span>{L_DONATION_ADDED_BY_HUMAN_EXPLAIN}</span></dt>
+				<dd>
+					<label><input type="radio" name="s_added_by_human" value="1" <!-- IF S_ADDED_BY_HUMAN -->id="s_added_by_human" checked="checked"<!-- ENDIF --> /> {L_YES}</label> 
+					<label><input type="radio" name="s_added_by_human" value="0" <!-- IF not S_ADDED_BY_HUMAN -->id="s_added_by_human" checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="s_status">{L_DONATION_STATUS}{L_COLON}</label><br /><span>{L_DONATION_STATUS_EXPLAIN}</span></dt>
+				<dd><select name="s_status" id="s_status">
+					<option value=0 <!-- IF S_STATUS == 0 -->selected="selected"<!-- ENDIF --> >{L_DONATION_INACTIVE}</option>
+					<option value=1 <!-- IF S_STATUS == 1 -->selected="selected"<!-- ENDIF --> >{L_DONATION_ACTIVE}</option>
+					<option value=2 <!-- IF S_STATUS == 2 -->selected="selected"<!-- ENDIF --> >{L_DONATION_WAITING_ACTIVATION}</option>
+				</select></dd>
+			</dl>
+			<dl>
+				<dt><label for="s_msg_status">{L_DONATION_MSG_STATUS}{L_COLON}</label><br /><span>{L_DONATION_MSG_STATUS_EXPLAIN}</span></dt>
+				<dd><select name="s_msg_status" id="s_msg_status">
+					<option value=0 <!-- IF S_MSG_STATUS == 0 -->selected="selected"<!-- ENDIF --> >{L_DONATION_MSG_0}</option>
+					<option value=1 <!-- IF S_MSG_STATUS == 1 -->selected="selected"<!-- ENDIF --> >{L_DONATION_MSG_1}</option>
+					<option value=2 <!-- IF S_MSG_STATUS == 2 -->selected="selected"<!-- ENDIF --> >{L_DONATION_MSG_2}</option>
+					<option value=3 <!-- IF S_MSG_STATUS == 3 -->selected="selected"<!-- ENDIF --> >{L_DONATION_MSG_3}</option>
+					<option value=3 <!-- IF S_MSG_STATUS == 4 -->selected="selected"<!-- ENDIF --> >{L_DONATION_MSG_4}</option>
+				</select></dd>
+			</dl>
+			<dl>
+				<dt><label for="comments">{L_DONATION_COMMENTS}{L_COLON}</label><br />
+				<span>{L_DONATION_COMMENTS_EXPLAIN}</span></dt>
+				<dd><textarea id="comments" name="comments" rows="8" cols="45">{COMMENTS}</textarea></dd>
+			</dl>			
+			
+		</fieldset>
+		<fieldset class="submit-buttons">
+			<input type="hidden" id="donation_id" name="donation_id" value="{DONATION_ID}" />
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+			{S_FORM_TOKEN}
+		</fieldset>
+	</form>
+	
+<!-- ELSEIF S_SYNC -->
+
+	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
+
+	<p>{L_ACTIVE_DONORS}{L_COLON} <strong>{ACTIVE_DONORS}</strong></p>
+	<p>{L_INACTIVE_DONORS}{L_COLON} <strong>{INACTIVE_DONORS}</strong></p>
+	<p>{L_DONORS_ADDED}{L_COLON} <strong>{DONORS_ADDED}</strong></p>
+	<ul>
+		<!-- BEGIN added --><li>{added.USERNAME}</li><!-- END added -->
+	</ul>
+	<p>{L_DONORS_REMOVED}{L_COLON} <strong>{DONORS_REMOVED}</strong></p>
+	<ul>
+		<!-- BEGIN removed --><li>{removed.USERNAME}</li><!-- END removed -->
+	</ul>	
+
+<!-- ELSEIF S_MSG -->
+
+	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
+
+	<p>{L_MESSAGES_SENT}{L_COLON} <strong>{MESSAGES_SENT}</strong></p>
+	<div>
+		<p><strong>{L_DONATION_MSG_1}</strong></p>
+		<ul style="list-style-type:disc">
+		<!-- BEGIN msg1 -->
+			<li>{msg1.USERNAME}</li>
+		<!-- END msg1 -->
+		</ul>  
+		<p><strong>{L_DONATION_MSG_2}</strong></p>
+		<ul style="list-style-type:disc">
+		<!-- BEGIN msg2 -->
+			<li>{msg2.USERNAME}</li>
+		<!-- END msg2 -->
+		</ul>  
+		<p><strong>{L_DONATION_MSG_3}</strong></p>
+		<ul style="list-style-type:disc">
+		<!-- BEGIN msg3 -->
+			<li>{msg3.USERNAME}</li>
+		<!-- END msg3 -->
+		</ul>  
+		<p><strong>{L_DONATION_MSG_4}</strong></p>
+		<ul style="list-style-type:disc">
+		<!-- BEGIN msg4 -->
+			<li>{msg4.USERNAME}</li>
+		<!-- END msg4 -->
+		</ul>  
+	</div>
+
+<!-- ELSE -->
+
+	<h1>{L_ACP_DONATIONS_MANAGE_DONATIONS}</h1>
+	<p>{L_ACP_DONATIONS_MANAGE_DONATIONS_EXPLAIN}</p>		
+	
+	<fieldset class="quick">	
+		<span class="small"><a class="button2" href="{U_SYNC_DONATIONS}">{L_DONATION_SYNC}</a></span>
+		<span class="small"><a class="button2" href="{U_MSG_DONATIONS}">{L_DONATION_SEND_MESSAGE}</a></span>
+	</fieldset>
+
+	<form id="donations_add" method="post" action="{U_ACTION}">
+		<fieldset class="quick">
+			<input class="button2" type="submit" name="adddonation" value="{L_DONATION_ADD}" />
+			<input type="hidden" name="action" value="add" />
+			{S_FORM_TOKEN}
+		</fieldset>
+	</form>	
+
+	<table class="table1 zebra-table fixed-width-table">
+		<thead>
+			<tr>
+				<th style="width: 3%;">#</th>
+				<th style="width: 10%;">{L_USER}</th>
+				<th style="width: 10%;">{L_DONATION_FIRST}</th>
+				<th style="width: 10%;">{L_DONATION_LAST}</th>
+				<th style="width: 10%;">{L_DONATION_EXPIRATION}</th>
+				<th style="width: 10%;">{L_DONATION_AMOUNT}</th>
+				<th style="width: 10%;">{L_DONATION_METHOD}</th>
+				<th style="width: 8%;">{L_DONATION_STATUS}</th>
+				<th style="width: 8%;">{L_DONATION_GIFT_SENT}</th>
+				<th style="width: 8%;">{L_DONATION_ADDED_BY_HUMAN}</th>
+				<th style="width: 6%;">{L_DONATION_MSG_STATUS}</th>
+				<th style="width: 7%;">{L_ACTION}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN donations -->
+			<tr>
+				<td>{donations.S_COUNT_LINE}</td>
+				<td><a href="{ROOT_PATH}memberlist.php?mode=viewprofile&u={donations.USERID}" target="parent"><strong>{donations.USER}</strong></a></td>
+				<td>{donations.FIRST}</td>
+				<td>{donations.LAST}</td>
+				<!-- IF donations.S_DAYS_TO_EXPIRE < 0 -->
+					<td style="color:DarkGray;">{donations.EXPIRATION} ({donations.S_DAYS_TO_EXPIRE} <!-- IF donations.S_DAYS_TO_EXPIRE == 1 -->{L_DAY}<!-- ELSE -->{L_DAYS}<!-- ENDIF -->)</td>
+				<!-- ELSEIF donations.S_DAYS_TO_EXPIRE >= 0 && donations.S_DAYS_TO_EXPIRE <= 7 -->
+					<td style="color:DarkRed;">{donations.EXPIRATION} ({donations.S_DAYS_TO_EXPIRE} <!-- IF donations.S_DAYS_TO_EXPIRE == 1 -->{L_DAY}<!-- ELSE -->{L_DAYS}<!-- ENDIF -->)</td>
+				<!-- ELSEIF donations.S_DAYS_TO_EXPIRE > 7 && donations.S_DAYS_TO_EXPIRE < 30 -->
+					<td style="color:DarkOrange;">{donations.EXPIRATION} ({donations.S_DAYS_TO_EXPIRE} <!-- IF donations.S_DAYS_TO_EXPIRE == 1 -->{L_DAY}<!-- ELSE -->{L_DAYS}<!-- ENDIF -->)</td>
+				<!-- ELSE -->
+					<td>{donations.EXPIRATION} ({donations.S_DAYS_TO_EXPIRE} <!-- IF donations.S_DAYS_TO_EXPIRE == 1 -->{L_DAY}<!-- ELSE -->{L_DAYS}<!-- ENDIF -->)</td>
+				<!-- ENDIF -->
+				<td>{donations.AMOUNT}</td>
+				<td>
+					<!-- IF donations.METHOD == "PAYPAL" -->
+						{L_DONATION_METHOD_PAYPAL}
+					<!-- ELSEIF donations.METHOD == "CHECKING ACCOUNT" -->
+						{L_DONATION_METHOD_CHECKING_ACCOUNT}
+					<!-- ELSEIF donations.METHOD == "IN PERSON" -->
+						{L_DONATION_METHOD_IN_PERSON}
+					<!-- ELSE -->
+						{L_DONATION_METHOD_OTHER}
+					<!-- ENDIF -->
+				</td>
+				<td>
+					<!-- IF donations.STATUS == 1 -->
+						{L_DONATION_ACTIVE}
+					<!-- ELSEIF donations.STATUS == 2 -->
+						{L_DONATION_WAITING_ACTIVATION}
+					<!-- ELSE -->
+						{L_DONATION_INACTIVE}
+					<!-- ENDIF -->
+				</td>
+				<td><input type="checkbox" name="gift_sent" id="gift_sent" <!-- IF donations.GIFT_SENT -->checked<!-- ENDIF --> disabled /></td>
+				<td><input type="checkbox" name="added_by_human" id="added_by_human" <!-- IF donations.ADDED_BY_HUMAN -->checked<!-- ENDIF --> disabled /></td>
+				<td>
+					<!-- IF donations.MSG_STATUS == 4 -->
+						{L_DONATION_MSG_4}
+					<!-- ELSEIF donations.MSG_STATUS == 3 -->
+						{L_DONATION_MSG_3}
+					<!-- ELSEIF donations.MSG_STATUS == 2 -->
+						{L_DONATION_MSG_2}
+					<!-- ELSEIF donations.MSG_STATUS == 1 -->
+						{L_DONATION_MSG_1}
+					<!-- ELSE -->
+						{L_DONATION_MSG_0}
+					<!-- ENDIF -->
+				</td>
+				<td>
+					<a href="{donations.U_EDIT_DONATION}">{ICON_EDIT}</a>&nbsp;
+					<a href="{donations.U_DELETE_DONATION}" data-ajax="row_delete">{ICON_DELETE}</a>&nbsp;
+					<!-- IF donations.STATUS <> 1 -->
+						<a href="{donations.U_ACTIVATE_DONATION}" data-ajax="true" data-refresh="true"><img alt="{L_DONATION_ACTIVATE}" src="{ROOT_PATH}ext/marcosfpo/donation/styles/all/theme/images/activate.png" /></a>&nbsp;
+					<!-- ELSE -->
+						<a href="{donations.U_DEACTIVATE_DONATION}" data-ajax="true" data-refresh="true"><img alt="{L_DONATION_DEACTIVATE}" src="{ROOT_PATH}ext/marcosfpo/donation/styles/all/theme/images/deactivate.png" /></a>&nbsp;
+					<!-- ENDIF -->					
+					<!-- IF !donations.GIFT_SENT -->
+						<a href="{donations.U_SEND_GIFT}" data-ajax="true" data-refresh="true"><img alt="{L_DONATION_SEND}" src="{ROOT_PATH}ext/marcosfpo/donation/styles/all/theme/images/send.png" /></a>&nbsp;
+					<!-- ENDIF -->					
+				</td>
+			</tr>
+			<!-- BEGINELSE -->
+			<tr>
+				<td colspan="10" style="text-align: center;">{L_DONATION_EMPTY}</td>
+			</tr>
+			<!-- END donations -->
+		</tbody>
+	</table>
+		
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

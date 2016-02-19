@@ -1,0 +1,3 @@
+marcosfpo_donation_controller:
+    path: /donation
+    defaults: { _controller: marcosfpo.donation.controller:handle }

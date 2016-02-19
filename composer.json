@@ -1,0 +1,42 @@
+{
+	"name": "marcosfpo/donation",
+	"type": "phpbb-extension",
+	"description": "A simple Donation extension (based on dmzx version).",
+	"homepage": "https://github.com/marcosfpo",
+	"version": "1.1.4",
+	"time": "2016-02-20",
+	"keywords": [
+		"phpbb",
+		"extension",
+		"donation"
+	],
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "marcosfpo",
+			"homepage": "https://github.com/marcosfpo",
+			"email": "marcosfpo@yahoo.com.br",
+			"role": "Developer"
+		},
+		{
+			"name": "dmzx",
+			"homepage": "http://www.dmzx-web.net",
+			"email": "info@dmzx-web.net",
+			"role": "Extension Developer"
+		},
+		{
+			"name": "Stoker",
+			"homepage": "http://www.phpbb3bbcodes.com",
+			"role": "Author"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3"
+	},
+	"extra": {
+		"display-name": "Donation",
+		"soft-require": {
+			"phpbb/phpbb": "3.1.*"
+		}
+	}
+}

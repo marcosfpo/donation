@@ -1,0 +1,30 @@
+<!-- IF EXPIRATION -->
+	<dt>{L_DONATION_LAST}{L_COLON}</dt> <dd>{LAST}</dd>
+	<dt>{L_DONATION_AMOUNT}{L_COLON}</dt> <dd>{L_DONATION_CURRENCY_SYMBOL} {AMOUNT}</dd>
+	<dt>{L_DONATION_EXPIRATION}{L_COLON}</dt> 
+		
+		<!-- IF  S_DAYS_TO_EXPIRE < 0 -->
+			<dd style="color:DarkRed;">{EXPIRATION}<br />(<b>{L_DONATION_EXPIRED}</b>)</dd>
+			
+		<!-- ELSEIF S_DAYS_TO_EXPIRE < 2 && S_DAYS_TO_EXPIRE >= 0 -->
+			<dd style="color:DarkRed;">{EXPIRATION}<br />({L_DONATION_REMAINING} {S_DAYS_TO_EXPIRE} {L_DAY})</dd>
+			
+		<!-- ELSEIF S_DAYS_TO_EXPIRE < 16 && S_DAYS_TO_EXPIRE >= 2 -->
+			<dd style="color:DarkOrange;">{EXPIRATION}<br />({L_DONATION_REMAINING} {S_DAYS_TO_EXPIRE} {L_DAYS})</dd>
+			
+		<!-- ELSE -->
+			<dd>{EXPIRATION}<br />({L_DONATION_REMAINING} {S_DAYS_TO_EXPIRE} {L_DAYS})</dd>
+			
+		<!-- ENDIF -->
+		
+	<dt>{L_DONATION_STATUS}{L_COLON}</dt>
+	
+		<!-- IF STATUS == 1 -->
+			<dd>{L_DONATION_ACTIVE}</dd>
+		<!-- ELSEIF DONATION_DONOR_STATUS == 0 -->
+			<dd>{L_DONATION_INACTIVE}</dd>
+		<!-- ELSE -->
+			<dd>{L_DONATION_WAITING_ACTIVATION}</dd>
+		<!-- ENDIF -->
+		
+<!-- ENDIF -->

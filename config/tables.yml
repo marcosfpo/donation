@@ -1,0 +1,3 @@
+parameters:
+    marcosfpo.donation.table.donation_config: %core.table_prefix%mfpo_donation_conf
+    marcosfpo.donation.table.donation_doles: %core.table_prefix%mfpo_donation_doles

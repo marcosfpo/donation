@@ -1,0 +1,12 @@
+services:
+# ----- Cron tasks -----
+    marcosfpo.donation.cron.donations.check:
+        class: marcosfpo\donation\cron\donations_check
+        arguments:
+            - @config
+            - @log
+            - @marcosfpo.donation.admin.controller
+        calls:
+            - [set_name, [cron.task.donations_check]]
+        tags:
+            - { name: cron.task }

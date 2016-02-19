@@ -1,0 +1,15 @@
+<!-- IF postrow.EXPIRATION -->
+	<!-- IF  postrow.S_DAYS_TO_EXPIRE < 0 -->
+		<dd style="color:DarkRed;">{L_DONATION_EXPIRATION}{L_COLON} {postrow.EXPIRATION}<br />(<b>{L_DONATION_EXPIRED}</b>)</dd>
+			
+	<!-- ELSEIF postrow.S_DAYS_TO_EXPIRE < 2 && postrow.S_DAYS_TO_EXPIRE >= 0 -->
+		<dd style="color:DarkRed;">{L_DONATION_EXPIRATION}{L_COLON} {postrow.EXPIRATION}<br />({L_DONATION_REMAINING} {postrow.S_DAYS_TO_EXPIRE} {L_DAY})</dd>
+			
+	<!-- ELSEIF postrow.S_DAYS_TO_EXPIRE < 16 && postrow.S_DAYS_TO_EXPIRE >= 2 -->
+		<dd style="color:DarkOrange;">{L_DONATION_EXPIRATION}{L_COLON} {postrow.EXPIRATION}<br />({L_DONATION_REMAINING} {postrow.S_DAYS_TO_EXPIRE} {L_DAYS})</dd>
+			
+	<!-- ELSEIF postrow.S_DAYS_TO_EXPIRE < 31 && postrow.S_DAYS_TO_EXPIRE >= 16 -->
+		<dd>{L_DONATION_EXPIRATION}{L_COLON} {postrow.EXPIRATION}<br />({L_DONATION_REMAINING} {postrow.S_DAYS_TO_EXPIRE} {L_DAYS})</dd>
+			
+	<!-- ENDIF -->
+<!-- ENDIF -->		
