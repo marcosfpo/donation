@@ -37,6 +37,7 @@ class donation_schema_0_1_0 extends \phpbb\db\migration\migration
          		array('config.add', array('mfpo_donors_check_last_run', 0)), // last run
 		        array('config.add', array('mfpo_donors_check_run', (60 * 60 * 24))), // seconds between run; 1 day
 		        
+		        array('custom', array(array($this, 'migrate_donations'))),
 			array('custom', array(array($this, 'insert_sample_data'))),
 		);
 	}
