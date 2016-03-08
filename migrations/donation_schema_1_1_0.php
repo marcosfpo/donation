@@ -34,7 +34,7 @@ class donation_schema_1_1_0 extends \phpbb\db\migration\migration
 	public function count_donors()
 	{
 		$donors = 0;
-		$sql = 'SELECT count( * ) AS donors FROM `cxt3_mfpo_donation_doles` WHERE `status` = 1';
+		$sql = 'SELECT count( * ) AS donors FROM `phpbb_mfpo_donation_doles` WHERE `status` = 1';
 		$this->db->sql_query($sql);
 		$result = $this->db->sql_query($sql);
 		if ($row = $this->db->sql_fetchrow($result))
